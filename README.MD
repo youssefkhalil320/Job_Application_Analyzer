@@ -23,7 +23,7 @@ pip install -r requirements.txt
 cd nltk_scripts
 python stop_words_downloader.py
 ```
-
+### Only do the the following two steps if you wish to try using Ollama models
 - Download Ollama Docker image
 ```
 docker run -d -v ollama:/root/.ollama -p 11435:11434 --name ollama ollama/ollama
