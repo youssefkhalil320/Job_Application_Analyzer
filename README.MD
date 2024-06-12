@@ -17,3 +17,9 @@ conda activate job_application
 ```
 pip install -r requirements.txt
 ```
+
+-install NLTK stop words
+```
+cd nltk_scripts
+python stop_words_downloader.py
+```
