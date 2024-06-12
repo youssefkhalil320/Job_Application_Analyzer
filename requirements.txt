@@ -8,3 +8,5 @@ httpx==0.27.0
 fastapi==0.111.0
 pydantic==2.7.4
 google-generativeai==0.6.0
+python-dotenv==1.0.1
+fpdf==1.7.2
