@@ -5,7 +5,7 @@ description
 - create virtual python environment 
 
 ```
-conda create -n job_application python=3.8
+conda create -n job_application python=3.9
 ```
 
 - activate the environment
