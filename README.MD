@@ -23,3 +23,13 @@ pip install -r requirements.txt
 cd nltk_scripts
 python stop_words_downloader.py
 ```
+
+- Download Ollama Docker image
+```
+docker run -d -v ollama:/root/.ollama -p 11435:11434 --name ollama ollama/ollama
+```
+
+- Run llama3 model locally
+```
+docker exec -it ollama ollama run llama3
+```
