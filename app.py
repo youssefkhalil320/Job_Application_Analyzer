@@ -21,8 +21,7 @@ candidate_details = defaultdict(str)
 
 def analyze_resume(file):
     global candidate_details
-    resume_summary = """
-"""
+    resume_summary = ""
     data = get_full_resume_text(file.name)
     candidate_details = defaultdict(str)
 
@@ -40,61 +39,60 @@ def analyze_resume(file):
     return resume_summary
 
 
-def interactive_chat(input_text, state):
-    if not state:
-        response = "Hi, welcome to the interview. Let's get started with the questions."
-        state.append(("Bot", response))
-        return state, state
-
-    last_entry = state[-1]
-    if last_entry[0] == "Bot" and "Let's get started" in last_entry[1]:
-        score, total_questions = get_questions(state)
-        final_message = f"Final score: {score} out of {total_questions}. Now you can download the report."
-        state.append(("Bot", final_message))
-        return state, state
-
-    response = chat.send_message(input_text).text
-    state.append((input_text, response))
-    return state, state
-
-
-def get_questions(state):
+def get_questions(input_text, state):
     global candidate_details
-    score = 0
+    score = state.get("score", 0)
+    question_index = state.get("question_index", 0)
     total_questions = num_questions_per_prompt * len(test_prompts_keys)
-    question_answers = []
+    question_answers = state.get("question_answers", [])
 
-    for prompt in test_prompts_keys:
-        for i in range(num_questions_per_prompt):
-            question = chat.send_message(test_prompts[prompt]).text
-            state.append(("Bot", question))
+    # If it's the first interaction, ask the first question
+    if question_index == 0:
+        state["question_answers"] = []
+        state["score"] = 0
+        state["question_index"] = 0
+        question = chat.send_message(test_prompts[test_prompts_keys[0]]).text
+        state["current_question"] = question
+        state["question_index"] += 1
+        return [("Bot", question)], state
 
-            # Wait for user response
-            while len(state) <= (i + 1) * 2:
-                time.sleep(1)
+    # Process the user's answer to the previous question
+    if "current_question" in state:
+        question = state["current_question"]
+        answer = input_text
+        evaluation = chat.send_message(answer).text
 
-            answer = state[-1][1]
-            evaluation = chat.send_message(answer).text
+        question_answers.append({
+            "question": question,
+            "answer": answer,
+            "evaluation": evaluation
+        })
 
-            question_answers.append({
-                "question": question,
-                "answer": answer,
-                "evaluation": evaluation
-            })
+        if "wrong" not in evaluation.lower():
+            score += 1
 
-            if "wrong" not in evaluation.lower():
-                score += 1
+        state["question_answers"] = question_answers
+        state["score"] = score
 
-            time.sleep(30)
+        if question_index < total_questions:
+            prompt_key = test_prompts_keys[question_index //
+                                           num_questions_per_prompt]
+            question = chat.send_message(test_prompts[prompt_key]).text
+            state["current_question"] = question
+            state["question_index"] += 1
+            # Introduce a delay of 15 seconds before asking the next question
+            time.sleep(15)
+            return [("User", answer), ("Bot", evaluation), ("Bot", question)], state
 
     candidate_details["questions_and_answers"] = question_answers
     candidate_details["score"] = f"{score} out of {total_questions}"
-    return score, total_questions
+    final_message = f"Final score: {candidate_details['score']}. Now you can download the report."
+    return [("User", answer), ("Bot", evaluation), ("Bot", final_message)], state
 
 
-def generate_report():
+def generate_report(name):
     global candidate_details
-    file_path = "./Reports/Khalil_details.pdf"
+    file_path = f"./Reports/{name}_details.pdf"
     export_summary_to_pdf(candidate_details, file_path)
     return file_path
 
@@ -116,18 +114,19 @@ with gr.Blocks() as demo:
         chatbot = gr.Chatbot()
         message = gr.Textbox(label="Enter your message")
         send_button = gr.Button("Send")
-        chat_state = gr.State([])
+        chat_state = gr.State({})
 
-        send_button.click(fn=interactive_chat, inputs=[
+        send_button.click(fn=get_questions, inputs=[
                           message, chat_state], outputs=[chatbot, chat_state])
-        message.submit(fn=interactive_chat, inputs=[
+        message.submit(fn=get_questions, inputs=[
                        message, chat_state], outputs=[chatbot, chat_state])
 
     with gr.Tab("Generate Report"):
+        name_input = gr.Textbox(label="Enter your name")
         generate_button = gr.Button("Generate Report")
         report_output = gr.File()
 
         generate_button.click(fn=generate_report,
-                              inputs=[], outputs=report_output)
+                              inputs=name_input, outputs=report_output)
 
 demo.launch()
