@@ -27,13 +27,17 @@ summary_prompts = {
     """
 }
 
-questions_prompts = {
+test_prompts = {
     "Questions_according_to_jobs": """
 - Please generate five MCQ questions for each the candidates in the topics he worked on through his professional experience
 - wait for the candidate to answer the question if correction just answer "correct" if wrong answer "wrong"
+- return the questions in the following form [q1, answer1],,[q2, answer2],,[q3, answer3]
+- Just return the questions and answer do not provide any additional text
 """,
     "Questions_related to_skills": """
 - Please generate five MCQ questions for each the candidates about the skills and technologies he wrote in the Resume
 - wait for the candidate to answer the question if correction just answer "correct" if wrong answer "wrong"
+- return the questions in the following form [q1, answer1],,[q2, answer2],,[q3, answer3]
+- Just return the questions and answer do not provide any additional text
 """
 }
