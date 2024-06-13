@@ -19,17 +19,3 @@ model = genai.GenerativeModel(
 
 # Start a chat session with an empty history
 chat = model.start_chat(history=[])
-
-
-def gemini_chat(message):
-    """
-    Send a message to the generative model and return the response text.
-
-    Args:
-        message (str): The message to send to the generative model.
-
-    Returns:
-        str: The response text from the generative model.
-    """
-    response = chat.send_message(message)
-    return response.text
