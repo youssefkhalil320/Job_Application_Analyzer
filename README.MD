@@ -72,5 +72,9 @@ http://127.0.0.1:7860
 ## Demo
 
 ![Alt text](./images/1.png)
+![Alt text](./images/2.png)
+![Alt text](./images/3.png)
+![Alt text](./images/4.png)
+
 ## Contribution
 Contributions are welcome! If you find any issues or have suggestions for improvement, please create an issue or submit a pull request on the project's GitHub repository.
