@@ -1,4 +1,9 @@
 from fpdf import FPDF
+import re
+
+
+def remove_unsupported_characters(text):
+    return re.sub(r'[^\x00-\x7F]+', '', text)
 
 
 def export_summary_to_pdf(candidate_details, filename="candidate_summary.pdf"):
@@ -16,19 +21,22 @@ def export_summary_to_pdf(candidate_details, filename="candidate_summary.pdf"):
                 pdf.cell(200, 10, txt=f"Question {idx+1}:", ln=True)
 
                 pdf.set_font("Arial", size=12)
-                pdf.multi_cell(0, 10, txt=qa["question"])
+                pdf.multi_cell(
+                    0, 10, txt=remove_unsupported_characters(qa["question"]))
 
                 pdf.set_font("Arial", 'B', size=12)
                 pdf.cell(200, 10, txt="Answer:", ln=True)
 
                 pdf.set_font("Arial", size=12)
-                pdf.multi_cell(0, 10, txt=qa["answer"])
+                pdf.multi_cell(
+                    0, 10, txt=remove_unsupported_characters(qa["answer"]))
 
                 pdf.set_font("Arial", 'B', size=12)
                 pdf.cell(200, 10, txt="Evaluation:", ln=True)
 
                 pdf.set_font("Arial", size=12)
-                pdf.multi_cell(0, 10, txt=qa["evaluation"])
+                pdf.multi_cell(
+                    0, 10, txt=remove_unsupported_characters(qa["evaluation"]))
 
         elif section == "score":
             # Add the final score
@@ -45,6 +53,6 @@ def export_summary_to_pdf(candidate_details, filename="candidate_summary.pdf"):
 
             # Add section content
             pdf.set_font("Arial", size=12)
-            pdf.multi_cell(0, 10, txt=content)
+            pdf.multi_cell(0, 10, txt=remove_unsupported_characters(content))
 
     pdf.output(filename)
