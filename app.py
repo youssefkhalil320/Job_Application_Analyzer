@@ -1,6 +1,6 @@
 import gradio as gr
 from modules.pdf_parser import get_full_resume_text
-from modules.gemini_chat import gemini_chat, model
+from modules.gemini_chat import model
 from modules.prompts import summary_prompts, test_prompts
 from modules.export_report import export_summary_to_pdf
 from collections import defaultdict
