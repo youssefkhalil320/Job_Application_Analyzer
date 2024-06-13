@@ -40,6 +40,13 @@ python stop_words_downloader.py
 cd ..
 ```
 
+### Step 5: Obtain Gemini-1.5-Pro API Key
+
+To use this application, you need to obtain an API key for Gemini-1.5-Pro from [Google AI Studio](https://aistudio.google.com/app/). Once obtained, follow these steps:
+
+1. Rename `.env.example` to `.env`.
+2. Paste your API key as the value for `GEMINI_API_KEY` in the `.env` file.
+
 ### Optional: Using Ollama Models
 
 If you wish to experiment with Ollama models, follow these additional steps:
@@ -58,7 +65,7 @@ Execute the Llama3 model within the running Docker container.
 docker exec -it ollama ollama run llama3
 ```
 
-### Step 5: Run the gradio app
+### Step 6: Run the gradio app
 
 ```bash
 python app.py
