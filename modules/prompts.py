@@ -26,3 +26,14 @@ summary_prompts = {
     - Example: Python, Java, C++, HTML
     """
 }
+
+questions_prompts = {
+    "Questions_according_to_jobs": """
+- Please generate five MCQ questions for each the candidates in the topics he worked on through his professional experience
+- wait for the candidate to answer the question if correction just answer "correct" if wrong answer "wrong"
+""",
+    "Questions_related to_skills": """
+- Please generate five MCQ questions for each the candidates about the skills and technologies he wrote in the Resume
+- wait for the candidate to answer the question if correction just answer "correct" if wrong answer "wrong"
+"""
+}
