@@ -99,7 +99,7 @@ def generate_report(name):
 
 # Gradio Interface
 with gr.Blocks() as demo:
-    gr.Markdown("# Candidate Report Generator")
+    gr.Markdown("# Resume analyzer and Virtual interviewer")
 
     with gr.Tab("Analyze Resume"):
         with gr.Column():
