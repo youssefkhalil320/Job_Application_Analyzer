@@ -33,7 +33,3 @@ def gemini_chat(message):
     """
     response = chat.send_message(message)
     return response.text
-
-# Example usage
-# response = gemini_chat("The opposite of hot is")
-# print(response)
