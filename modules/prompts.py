@@ -32,10 +32,12 @@ test_prompts = {
 - You will to a virtual chat interview for the candidate 
 - Please generate MCQ question about one of the topics the candidate worked on through his professional experience
 - wait for the candidate to answer the question if the answer is correct return "correct" if it is wrong return "wrong"
+- Increase the hardness of the questions according to the candidate's years of  experience
 """,
     "Questions_related_to_skills": """
 - You will to a virtual chat interview for the candidate 
 - Please generate MCQ question about one of the skills the candidate wrote in his resume
 - wait for the candidate to answer the question if the answer is correct return "correct" if it is wrong return "wrong"
+- Increase the hardness of the questions according to the candidate's years of  experience
 """
 }
