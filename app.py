@@ -28,7 +28,6 @@ time.sleep(15)
 def get_summary():
     for prompt in questions_prompts_keys:
         response = chat.send_message(summary_prompts[prompt]).text
-        print(response)
         candidate_details[prompt] = response
         time.sleep(30)
 
@@ -41,10 +40,8 @@ def get_questions():
     for prompt in test_prompts_keys:
         for i in range(num_questions_per_prompt):
             question = chat.send_message(test_prompts[prompt]).text
-            print(question)
             answer = input("Write your answer please: ")
             evaluation = chat.send_message(answer).text
-            print(evaluation)
 
             question_answers.append({
                 "question": question,
@@ -64,5 +61,4 @@ def get_questions():
 
 get_summary()
 score, total_questions = get_questions()
-print(f"Final Score: {score} out of {total_questions}")
 export_summary_to_pdf(candidate_details, "./Reports/Khalil_details.pdf")
