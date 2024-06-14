@@ -4,6 +4,10 @@
 
 The Job Application Analyzer is a sophisticated tool designed to streamline the process of analyzing and evaluating job applications. Leveraging advanced natural language processing (NLP) and artificial intelligence (AI) models, this tool automates the extraction of key details from resumes, conducts virtual interviews with candidates, and generates comprehensive reports. The primary goal is to assist HR professionals and recruiters in efficiently assessing candidate qualifications and fit for a given role.
 
+### System Design
+![Alt text](./images/5.png)
+
+
 ## Features
 
 - **Resume Analysis**: Automatically extract and summarize key details such as years of experience, education, job titles, and skills from uploaded resumes.
