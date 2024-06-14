@@ -89,3 +89,12 @@ http://127.0.0.1:7860
 
 ## Contribution
 Contributions are welcome! If you find any issues or have suggestions for improvement, please create an issue or submit a pull request on the project's GitHub repository.
+
+### Future work 
+
+- Working for better prompts 
+- testing another LLMs and comparing performance and latency time
+- building better front-end using different framework
+- adding video interview analysis feature 
+- adding job description-Resume matching feature
+- supporting multiple languages 
